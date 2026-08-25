@@ -14,9 +14,24 @@ export function useCheckin() {
         isPaid: true,
         ...breakfast,
       }),
-    onSuccess: (data) => {
+    onSuccess: async (data, variables) => {
       toast.success(`Booking #${data.id} successfully checked in`);
-      queryClient.invalidateQueries({ active: true });
+
+      queryClient.setQueryData(["booking", variables.bookingId], data);
+      queryClient.setQueriesData({ queryKey: ["stays"] }, (stays) =>
+        stays?.map((stay) =>
+          stay.id === data.id ? { ...stay, ...data } : stay,
+        ),
+      );
+
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ["booking", variables.bookingId],
+        }),
+        queryClient.refetchQueries({ queryKey: ["stays"], type: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["today-activity"] }),
+        queryClient.invalidateQueries({ queryKey: ["bookings"] }),
+      ]);
       navigate("/");
     },
 

@@ -27,6 +27,12 @@ const ChartBox = styled.div`
     font-weight: 600;
   }
 `;
+const NoChart = styled.p`
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-top: 0.8rem;
+`;
 
 const startDataLight = [
   {
@@ -131,7 +137,7 @@ function prepareData(startData, stays) {
       if ([6, 7].includes(num)) return incArrayValue(arr, "6-7 nights");
       if (num >= 8 && num <= 14) return incArrayValue(arr, "8-14 nights");
       if (num >= 15 && num <= 21) return incArrayValue(arr, "15-21 nights");
-      if (num >= 21) return incArrayValue(arr, "21+ nights");
+      if (num > 21) return incArrayValue(arr, "21+ nights");
       return arr;
     }, startData)
     .filter((obj) => obj.value > 0);
@@ -148,35 +154,39 @@ export default function DurationChart({ confirmedStays }) {
     <ChartBox>
       <Heading as="h2">Stay duration summary</Heading>
       <ResponsiveContainer width="100%" height={240}>
-        <PieChart>
-          <Pie
-            data={data}
-            nameKey="duration"
-            dataKey="value"
-            innerRadius={85}
-            outerRadius={110}
-            cx="40%"
-            cy="50%"
-            paddingAngle={3}
-          >
-            {startDataDark.map((entry) => (
-              <Cell
-                fill={entry.color}
-                stroke={entry.color}
-                key={entry.duration}
-              />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend
-            verticalAlign="middle"
-            align="right"
-            width="30%"
-            layout="vertical"
-            iconSize={15}
-            iconType="circle"
-          />
-        </PieChart>
+        {confirmedStays.length > 0 ? (
+          <PieChart>
+            <Pie
+              data={data}
+              nameKey="duration"
+              dataKey="value"
+              innerRadius={85}
+              outerRadius={110}
+              cx="40%"
+              cy="50%"
+              paddingAngle={3}
+            >
+              {startDataDark.map((entry) => (
+                <Cell
+                  fill={entry.color}
+                  stroke={entry.color}
+                  key={entry.duration}
+                />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend
+              verticalAlign="middle"
+              align="right"
+              width="30%"
+              layout="vertical"
+              iconSize={15}
+              iconType="circle"
+            />
+          </PieChart>
+        ) : (
+          <NoChart>No data to show...</NoChart>
+        )}
       </ResponsiveContainer>
     </ChartBox>
   );

@@ -99,7 +99,8 @@ function CheckinBooking() {
             }}
             id="breakfast"
           >
-            You want dem yums for {formatCurrency(optionalBreakfastPrice)}?
+            You want to add breakfast for
+            {formatCurrency(optionalBreakfastPrice)}?
           </CheckBox>
         </Box>
       )}
