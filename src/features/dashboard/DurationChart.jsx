@@ -166,7 +166,7 @@ export default function DurationChart({ confirmedStays }) {
               cy="50%"
               paddingAngle={3}
             >
-              {startDataDark.map((entry) => (
+              {startData.map((entry) => (
                 <Cell
                   fill={entry.color}
                   stroke={entry.color}
