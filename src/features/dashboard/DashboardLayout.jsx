@@ -7,7 +7,6 @@ import { useCabins } from "../cabins/useCabins";
 import SalesChart from "./SalesChart";
 import DurationChart from "./DurationChart";
 import TodayActivity from "../check-in-out/TodayActivity";
-import Uploader from "../../data/Uploader";
 
 const StyledDashboardLayout = styled.div`
   display: grid;

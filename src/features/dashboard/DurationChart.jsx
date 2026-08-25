@@ -154,7 +154,7 @@ export default function DurationChart({ confirmedStays }) {
     <ChartBox>
       <Heading as="h2">Stay duration summary</Heading>
       <ResponsiveContainer width="100%" height={240}>
-        {confirmedStays.length > 0 ? (
+        {data.length > 0 && confirmedStays.length > 0 ? (
           <PieChart>
             <Pie
               data={data}
