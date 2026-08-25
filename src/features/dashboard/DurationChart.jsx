@@ -115,8 +115,6 @@ const startDataDark = [
 ];
 
 function prepareData(startData, stays) {
-  // A bit ugly code, but sometimes this is what it takes when working with real data 😅
-
   function incArrayValue(arr, field) {
     return arr.map((obj) =>
       obj.duration === field ? { ...obj, value: obj.value + 1 } : obj,
@@ -158,13 +156,13 @@ export default function DurationChart({ confirmedStays }) {
             innerRadius={85}
             outerRadius={110}
             cx="40%"
-            cy="50&"
+            cy="50%"
             paddingAngle={3}
           >
             {startDataDark.map((entry) => (
               <Cell
                 fill={entry.color}
-                stroke={entry.coloe}
+                stroke={entry.color}
                 key={entry.duration}
               />
             ))}
@@ -173,7 +171,7 @@ export default function DurationChart({ confirmedStays }) {
           <Legend
             verticalAlign="middle"
             align="right"
-            widht="30%"
+            width="30%"
             layout="vertical"
             iconSize={15}
             iconType="circle"

@@ -16,11 +16,27 @@ const StyledDashboardLayout = styled.div`
 `;
 
 export default function DashboardLayout() {
-  const { isLoading: isLoading1, bookings } = useRecentBookings();
-  const { confirmedStays, isLoading: isLoading2, numDays } = useRecentStays();
-  const { isLoading: isLoadingCabins, cabins } = useCabins();
+  const {
+    isLoading: isLoading1,
+    bookings,
+    error: bookingsError,
+  } = useRecentBookings();
+  const {
+    confirmedStays,
+    isLoading: isLoading2,
+    numDays,
+    error: staysError,
+  } = useRecentStays();
+  const {
+    isLoading: isLoadingCabins,
+    cabins,
+    error: cabinsError,
+  } = useCabins();
 
   if (isLoading1 || isLoading2 || isLoadingCabins) return <Spinner />;
+
+  const error = bookingsError || staysError || cabinsError;
+  if (error) return <p>Dashboard could not be loaded: {error.message}</p>;
 
   return (
     <StyledDashboardLayout>

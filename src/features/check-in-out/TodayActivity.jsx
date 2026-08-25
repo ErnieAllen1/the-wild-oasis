@@ -40,7 +40,7 @@ const NoActivity = styled.p`
 `;
 
 function TodayActivity() {
-  const { isLoading, activities } = useTodayActivity();
+  const { isLoading, activities, error } = useTodayActivity();
 
   return (
     <StyledToday>
@@ -48,7 +48,9 @@ function TodayActivity() {
         <Heading as="h2">Today</Heading>
       </Row>
 
-      {!isLoading ? (
+      {!isLoading && error ? (
+        <NoActivity>Today&apos;s activity could not be loaded.</NoActivity>
+      ) : !isLoading ? (
         activities.length > 0 ? (
           <TodayList>
             {activities.map((activity) => (
